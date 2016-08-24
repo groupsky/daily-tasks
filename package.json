@@ -1,0 +1,62 @@
+{
+  "name": "daily-tasks",
+  "version": "0.0.1",
+  "description": "A simple todo list focused on daily tasks",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/groupsky/daily-tasks.git"
+  },
+  "keywords": [
+    "todo"
+  ],
+  "author": "Geno Roupsky",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/groupsky/daily-tasks/issues"
+  },
+  "homepage": "https://github.com/groupsky/daily-tasks#readme",
+  "devDependencies": {
+    "budo": "latest",
+    "watch": "latest",
+    "watchify": "latest"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-bootstrap": "^2.1.2",
+    "bootstrap": "^3.3.7",
+    "browserify": "^13.1.0",
+    "browserify-ngannotate": "^2.0.0",
+    "browserify-shim": "^3.8.12",
+    "bulk-require": "^1.0.0",
+    "bulkify": "^1.4.2",
+    "envify": "^3.4.1",
+    "less": "^2.7.1",
+    "less-plugin-autoprefix": "^1.5.1",
+    "less-plugin-clean-css": "^1.5.1",
+    "minifyify": "^7.3.3",
+    "npm-run-all": "^3.0.0",
+    "stringify": "^5.1.0",
+    "uglifyify": "^3.0.2"
+  },
+  "browserify-shim": {
+
+  },
+  "browserify": {
+    "transform": [
+      "stringify",
+      "browserify-shim",
+      "bulkify",
+      "envify"
+    ]
+  },
+  "scripts": {
+    "build:css": "lessc --clean-css --source-map --source-map-less-inline --autoprefix app/styles/main.less public/styles.css",
+    "build:js": "browserify app/scripts/index.js -d -p [minifyify --map /scripts.map.json --output ./public/scripts.map.json] > ./public/scripts.js",
+    "build": "npm-run-all --parallel --print-label build:css build:js",
+    "watch:css": "watch 'npm run build:css' app/styles",
+    "budo": "budo app/scripts/index.js --serve scripts.js -d public/ --live --pushstate --css styles.css",
+    "dev": "npm-run-all --parallel --print-label budo watch:css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

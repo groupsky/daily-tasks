@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Tasks</title>
+    <link rel="stylesheet" href="styles.css"/>
+    <script src="scripts.js" async/>
+</head>
+<body>
+
+<div class="container" ng-controller="Tasks as $ctrl">
+    <div class="row">
+        <form ng-controller="Task as task">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label for="task">Task</label>
+                    <input type="text" class="form-control" id="task" placeholder="Task" ng-model="task.task.label">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-default" ng-click="$ctrl.add(task.task); task.new()">Add</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" ng-repeat="task in $ctrl.tasks">
+            <label ng-class="task.completed&&'completed'">
+                <input type="checkbox" ng-model="task.completed">
+                {{task.label}}
+            </label>
+        </div>
+    </div>
+</div>
+</body>
+</html>
